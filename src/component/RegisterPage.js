@@ -1,7 +1,7 @@
 import React from "react";
 import UserAdd from "../redux/user/UserAdd";
 import { connect } from "react-redux";
-import DisplayUser from "./DisplayUser";
+
 class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ class RegisterPage extends React.Component {
 
   submitForm = e => {
     e.preventDefault();
-
+    const router = useRouter();
     if (this.formFilled()) {
       console.log("COMPLETED");
       let u = [...this.state.users];
@@ -47,6 +47,7 @@ class RegisterPage extends React.Component {
           localStorage.setItem("userList", JSON.stringify(this.state.users));
         }
       );
+      // router.push("/display");
     } else {
       console.log("UNfilled");
       this.setState({
@@ -165,8 +166,6 @@ class RegisterPage extends React.Component {
           {this.state.user.isFilled ? "" : <h5>all fields are manditory</h5>}
           <button onClick={this.submitForm}>Submit</button>
         </form>
-
-        <DisplayUser />
       </div>
     );
   }
@@ -182,6 +181,7 @@ const mapDispatchToProp = dispatch => {
     UserAdd: () => dispatch(UserAdd())
   };
 };
+
 export default connect(
   mapStatetoProps,
   mapDispatchToProp
