@@ -1,6 +1,7 @@
 import React from "react";
 import UserAdd from "../redux/user/UserAdd";
 import { connect } from "react-redux";
+import DisplayUser from "./DisplayUser";
 class RegisterPage extends React.Component {
   constructor(props) {
     super(props);
@@ -164,6 +165,8 @@ class RegisterPage extends React.Component {
           {this.state.user.isFilled ? "" : <h5>all fields are manditory</h5>}
           <button onClick={this.submitForm}>Submit</button>
         </form>
+
+        <DisplayUser />
       </div>
     );
   }
