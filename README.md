@@ -1,2 +1,0 @@
-# DisplaydetailswithLocalstorage
-Created with CodeSandbox
