@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 
 class RegisterPage extends React.Component {
   constructor(props) {
+    console.log("constructor");
     super(props);
     this.state = {
       user: {
@@ -19,6 +20,10 @@ class RegisterPage extends React.Component {
       },
       users: []
     };
+  }
+
+  componentDidMount() {
+    console.log("component did mount");
   }
 
   setFormValues = e => {
@@ -46,18 +51,18 @@ class RegisterPage extends React.Component {
   getMaxSnoFromLocalArray = () => {
     let a = JSON.parse(localStorage.getItem("userList"));
     if (a !== null) {
-      console.log("here");
-
+      if (a.legnth === 0) {
+        return 0;
+      }
       var b = Math.max.apply(
         Math,
         a.map(function(o) {
           return o.s_no;
         })
       );
-      console.log("item=", b);
+      // console.log("next=", b);
       return b;
     } else {
-      console.log("there");
       return 0;
     }
   };
@@ -66,13 +71,13 @@ class RegisterPage extends React.Component {
     e.preventDefault();
 
     if (this.formFilled()) {
-      console.log("COMPLETED");
+      // console.log("COMPLETED");
       let localUsers = [];
       localUsers = JSON.parse(localStorage.getItem("userList"));
       if (localUsers === null) {
         localUsers = [];
       }
-      console.log("length", this.getArrayLengthOfLocalStorage());
+      //  console.log("length", this.getArrayLengthOfLocalStorage());
       let u = [...this.state.users];
 
       u.push(this.state.user);
@@ -89,7 +94,7 @@ class RegisterPage extends React.Component {
       );
       // router.push("/display");
     } else {
-      console.log("UNfilled");
+      //  console.log("UNfilled");
       this.setState({
         user: { ...this.state.user, isFilled: false }
       });
@@ -115,6 +120,7 @@ class RegisterPage extends React.Component {
   render() {
     return (
       <div>
+        {console.log("Render")}
         <form>
           <label>
             First Name
