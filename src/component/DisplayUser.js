@@ -24,6 +24,7 @@ class DisplayUser extends React.Component {
   editItem = id => {
     let newUsers = this.state.users.filter(item => item.s_no === id);
     localStorage.setItem("editUser", JSON.stringify(newUsers));
+    this.props.history.push("/");
   };
 
   getUserData = () => {
@@ -36,9 +37,10 @@ class DisplayUser extends React.Component {
         <td>{items.lname}</td>
         <td>{items.email}</td>
         <td>{items.gender}</td>
-        <td>{items.designation}</td>
-        <td>{items.address}</td>
         <td>{items.phoneno}</td>
+        <td>{items.address}</td>
+        <td>{items.designation}</td>
+
         <td>
           <button onClick={() => this.deleteItem(items.s_no)}>Delete</button>
         </td>

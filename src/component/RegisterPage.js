@@ -4,39 +4,63 @@ import { connect } from "react-redux";
 
 class RegisterPage extends React.Component {
   constructor(props) {
-    console.log("constructor");
     super(props);
+    let user_local = JSON.parse(localStorage.getItem("editUser"));
+    let user_l = null;
+    if (user_local !== null) {
+      user_l = user_local[0];
+    } else {
+      user_l = null;
+    }
+    console.log("edit user=", user_l);
     this.state = {
       user: {
-        s_no: 0,
-        fname: "",
-        lname: "",
-        email: "",
-        gender: "",
-        designation: "",
-        address: "",
-        phoneno: "",
-        isFilled: true
+        s_no: user_l !== null ? user_l.s_no : 0,
+        fname: user_l !== null ? user_l.fname : "",
+        lname: user_l !== null ? user_l.lname : "",
+        email: user_l !== null ? user_l.email : "",
+        gender: user_l !== null ? user_l.gender : "",
+        designation: user_l !== null ? user_l.designation : "",
+        address: user_l !== null ? user_l.address : "",
+        phoneno: user_l !== null ? user_l.phoneno : "",
+        isFilled: true,
+        isEdit: user_l !== null ? true : false
       },
       users: []
     };
   }
 
-  componentDidMount() {
-    console.log("component did mount");
-  }
-
   setFormValues = e => {
     e.preventDefault();
-    let genSno = this.getMaxSnoFromLocalArray();
-    this.setState({
-      user: {
-        ...this.state.user,
-        [e.target.name]: e.target.value,
-        isFilled: true,
-        s_no: genSno + 1
+    if (this.state.user.isEdit) {
+      let user_local = JSON.parse(localStorage.getItem("editUser"));
+      let user_l = null;
+      if (user_local !== null) {
+        user_l = user_local[0];
+      } else {
+        user_l = null;
       }
-    });
+      let genSno =
+        user_l !== null ? user_l.s_no : this.getMaxSnoFromLocalArray();
+      this.setState({
+        user: {
+          ...this.state.user,
+          [e.target.name]: e.target.value,
+          isFilled: true,
+          s_no: genSno
+        }
+      });
+    } else {
+      let genSno = this.getMaxSnoFromLocalArray();
+      this.setState({
+        user: {
+          ...this.state.user,
+          [e.target.name]: e.target.value,
+          isFilled: true,
+          s_no: genSno + 1
+        }
+      });
+    }
   };
 
   getArrayLengthOfLocalStorage = () => {
@@ -69,35 +93,70 @@ class RegisterPage extends React.Component {
 
   submitForm = e => {
     e.preventDefault();
-
-    if (this.formFilled()) {
-      // console.log("COMPLETED");
-      let localUsers = [];
-      localUsers = JSON.parse(localStorage.getItem("userList"));
-      if (localUsers === null) {
-        localUsers = [];
-      }
-      //  console.log("length", this.getArrayLengthOfLocalStorage());
-      let u = [...this.state.users];
-
-      u.push(this.state.user);
-      localUsers.push(this.state.user);
-      this.setState(
-        {
-          users: u
-        },
-        () => {
-          // localStorage.setItem("userList", JSON.stringify(this.state.users));
-          localStorage.setItem("userList", JSON.stringify(localUsers));
-          this.props.history.push("/display");
+    console.log("edit =", this.state.user.isEdit);
+    if (this.state.user.isEdit) {
+      console.log("edit mode");
+      if (this.formFilled()) {
+        console.log("COMPLETED");
+        let localUsers = [];
+        localUsers = JSON.parse(localStorage.getItem("userList"));
+        if (localUsers === null) {
+          localUsers = [];
         }
-      );
-      // router.push("/display");
+        //  console.log("length", this.getArrayLengthOfLocalStorage());
+        let u = localUsers.filter(items => items.s_no !== this.state.user.s_no);
+        console.log("u=", u);
+        u.push(this.state.user);
+        console.log("u puse=", u);
+        this.setState(
+          {
+            users: u
+          },
+          () => {
+            // localStorage.setItem("userList", JSON.stringify(this.state.users));
+            localStorage.setItem("userList", JSON.stringify(u));
+            localStorage.removeItem("editUser");
+            this.props.history.push("/display");
+          }
+        );
+
+        // router.push("/display");
+      } else {
+        //  console.log("UNfilled");
+        this.setState({
+          user: { ...this.state.user, isFilled: false }
+        });
+      }
     } else {
-      //  console.log("UNfilled");
-      this.setState({
-        user: { ...this.state.user, isFilled: false }
-      });
+      if (this.formFilled()) {
+        // console.log("COMPLETED");
+        let localUsers = [];
+        localUsers = JSON.parse(localStorage.getItem("userList"));
+        if (localUsers === null) {
+          localUsers = [];
+        }
+        //  console.log("length", this.getArrayLengthOfLocalStorage());
+        let u = [...this.state.users];
+
+        u.push(this.state.user);
+        localUsers.push(this.state.user);
+        this.setState(
+          {
+            users: u
+          },
+          () => {
+            // localStorage.setItem("userList", JSON.stringify(this.state.users));
+            localStorage.setItem("userList", JSON.stringify(localUsers));
+            this.props.history.push("/display");
+          }
+        );
+        // router.push("/display");
+      } else {
+        //  console.log("UNfilled");
+        this.setState({
+          user: { ...this.state.user, isFilled: false }
+        });
+      }
     }
   };
 
@@ -120,7 +179,6 @@ class RegisterPage extends React.Component {
   render() {
     return (
       <div>
-        {console.log("Render")}
         <form>
           <label>
             First Name
@@ -138,7 +196,7 @@ class RegisterPage extends React.Component {
               type="text"
               name="lname"
               onChange={this.setFormValues}
-              value={this.state.lname}
+              value={this.state.user.lname}
             />
           </label>
           <br />
@@ -148,7 +206,7 @@ class RegisterPage extends React.Component {
               type="text"
               name="email"
               onChange={this.setFormValues}
-              value={this.state.email}
+              value={this.state.user.email}
             />
           </label>
           <br />
@@ -158,11 +216,13 @@ class RegisterPage extends React.Component {
               type="radio"
               name="gender"
               value="male"
+              checked={this.state.user.gender === "male"}
               onChange={this.setFormValues}
             />{" "}
             Male
             <input
               type="radio"
+              checked={this.state.user.gender === "female"}
               onChange={this.setFormValues}
               name="gender"
               value="female"
@@ -170,6 +230,7 @@ class RegisterPage extends React.Component {
             Female
             <input
               type="radio"
+              checked={this.state.user.gender === "other"}
               onChange={this.setFormValues}
               name="gender"
               value="other"
@@ -183,7 +244,7 @@ class RegisterPage extends React.Component {
               type="number"
               name="phoneno"
               onChange={this.setFormValues}
-              value={this.state.phoneno}
+              value={this.state.user.phoneno}
             />{" "}
           </label>
           <br />
@@ -193,7 +254,7 @@ class RegisterPage extends React.Component {
               type="text"
               name="address"
               onChange={this.setFormValues}
-              value={this.state.address}
+              value={this.state.user.address}
             />{" "}
           </label>
           <br />
@@ -203,7 +264,7 @@ class RegisterPage extends React.Component {
               type="text"
               name="designation"
               onChange={this.setFormValues}
-              value={this.state.designation}
+              value={this.state.user.designation}
             />{" "}
           </label>
 
