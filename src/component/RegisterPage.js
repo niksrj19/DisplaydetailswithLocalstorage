@@ -23,7 +23,7 @@ class RegisterPage extends React.Component {
 
   setFormValues = e => {
     e.preventDefault();
-    let genSno = this.getArrayLengthOfLocalStorage();
+    let genSno = this.getMaxSnoFromLocalArray();
     this.setState({
       user: {
         ...this.state.user,
@@ -39,6 +39,25 @@ class RegisterPage extends React.Component {
     if (a !== null) {
       return a.length;
     } else {
+      return 0;
+    }
+  };
+
+  getMaxSnoFromLocalArray = () => {
+    let a = JSON.parse(localStorage.getItem("userList"));
+    if (a !== null) {
+      console.log("here");
+
+      var b = Math.max.apply(
+        Math,
+        a.map(function(o) {
+          return o.s_no;
+        })
+      );
+      console.log("item=", b);
+      return b;
+    } else {
+      console.log("there");
       return 0;
     }
   };

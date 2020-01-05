@@ -2,7 +2,7 @@ import React from "react";
 import UserAdd from "../redux/user/UserAdd";
 import { connect } from "react-redux";
 
-class DisplayUser extends React.Component {
+class UseDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,16 +10,6 @@ class DisplayUser extends React.Component {
     };
     console.log(this.state.users);
   }
-  deleteItem = id => {
-    console.log("id=", id);
-
-    let newUsers = this.state.users.filter(item => item.s_no !== id);
-    this.setState({ users: newUsers }, () =>
-      localStorage.setItem("userList", JSON.stringify(this.state.users))
-    );
-
-    console.log(newUsers);
-  };
 
   getUserData = () => {
     let userdata = "";
@@ -35,7 +25,7 @@ class DisplayUser extends React.Component {
         <td>{items.address}</td>
         <td>{items.phoneno}</td>
         <td>
-          <button onClick={() => this.deleteItem(items.s_no)}>Delete</button>
+          <button onClick={({ id }) => this.clickedItem(id)}>Delete</button>
         </td>
       </tr>
     ));
@@ -57,11 +47,21 @@ class DisplayUser extends React.Component {
               <th>Address</th>
               <th>Designation</th>
             </tr>
-            {this.getUserData()}
+            <td>{this.props.user.s_no}</td>
+            <td>{this.props.user.fname}</td>
+            <td>{this.props.user.lname}</td>
+            <td>{this.props.user.email}</td>
+            <td>{this.props.user.gender}</td>
+            <td>{this.props.user.designation}</td>
+            <td>{this.props.user.address}</td>
+            <td>{this.props.user.phoneno}</td>
+            <td>
+              <button onClick={({ id }) => this.clickedItem(id)}>Delete</button>
+            </td>
           </tbody>
         </table>
       </div>
     );
   }
 }
-export default DisplayUser;
+export default UseDetails;
