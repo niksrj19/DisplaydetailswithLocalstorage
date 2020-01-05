@@ -45,7 +45,7 @@ class DisplayUser extends React.Component {
   render() {
     return (
       <div>
-        <table>
+        <table border="1">
           <tbody>
             <tr>
               <th>No.</th>
@@ -60,6 +60,9 @@ class DisplayUser extends React.Component {
             {this.getUserData()}
           </tbody>
         </table>
+        <button onClick={() => this.props.history.push("/")}>
+          Add More User
+        </button>
       </div>
     );
   }
