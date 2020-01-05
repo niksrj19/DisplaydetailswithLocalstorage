@@ -7,7 +7,7 @@ import DisplayUser from "./component/DisplayUser";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import RegisterPage from "./component/RegisterPage";
-import "./styles.css";
+import "./css/styles.css";
 
 function App() {
   return (

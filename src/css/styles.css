@@ -1,0 +1,175 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+/* Full-width input fields */
+input[type="text"],
+input[type="password"] {
+  width: 50%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+.content {
+  color: white;
+  background-color: DodgerBlue;
+  padding: 10px;
+  font-family: Arial;
+  margin: 10px;
+}
+.loginClass {
+  border: 1px solid black;
+  background: lightblue;
+}
+
+.font10 {
+  font-size: 10px;
+}
+
+.font12 {
+  font-size: 12px;
+}
+
+.font14 {
+  font-size: 14px;
+}
+
+.font16 {
+  font-size: 16px;
+}
+
+.font18 {
+  font-size: 18px;
+}
+
+.font6 {
+  font-size: 8px;
+}
+.loginClass {
+  margin: 5% auto;
+  width: 40%;
+  border: 3px solid green;
+  padding: 1%;
+}
+.loginHeadline {
+  font-size: 20px;
+}
+
+.LoginButton {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.logininputClass {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.logininputClassErr {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+.SearchAllClass {
+  width: 50%;
+  float: left;
+}
+.SearchHomePlanet {
+  width: 50%;
+  float: right;
+}
+.logoutButton {
+  position: absolute;
+  background-color: red; /* Green */
+  border: none;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+}
+.gridview-home-search {
+  background-color: #4caf50; /* Green */
+  margin-left: 1%;
+  border: none;
+  color: white;
+  padding: 11px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.registerbtn {
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 30%;
+  opacity: 0.9;
+}
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+  background-color: #ddd;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4caf50;
+  color: white;
+}
+
+.editbtn {
+  background-color: rgb(175, 57, 13);
+  color: white;
+  padding: 2px;
+  margin: 1px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.deletebtn {
+  background-color: red;
+  color: white;
+  padding: 2px;
+  margin: 1px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}

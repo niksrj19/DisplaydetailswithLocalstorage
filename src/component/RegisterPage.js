@@ -1,6 +1,7 @@
 import React from "react";
 import UserAdd from "../redux/user/UserAdd";
 import { connect } from "react-redux";
+import "../css/styles.css";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -31,7 +32,6 @@ class RegisterPage extends React.Component {
   }
 
   setFormValues = e => {
-    e.preventDefault();
     if (this.state.user.isEdit) {
       let user_local = JSON.parse(localStorage.getItem("editUser"));
       let user_l = null;
@@ -178,11 +178,12 @@ class RegisterPage extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="loginClass">
         <form>
           <label>
             First Name
             <input
+              className="logininputClass"
               onChange={this.setFormValues}
               type="text"
               name="fname"
@@ -193,6 +194,7 @@ class RegisterPage extends React.Component {
           <label>
             Last Name
             <input
+              className="logininputClass"
               type="text"
               name="lname"
               onChange={this.setFormValues}
@@ -203,6 +205,7 @@ class RegisterPage extends React.Component {
           <label>
             Email
             <input
+              className="logininputClass"
               type="text"
               name="email"
               onChange={this.setFormValues}
@@ -241,6 +244,7 @@ class RegisterPage extends React.Component {
           <label>
             Phone No.
             <input
+              className="logininputClass"
               type="number"
               name="phoneno"
               onChange={this.setFormValues}
@@ -251,6 +255,8 @@ class RegisterPage extends React.Component {
           <label>
             Address
             <textarea
+              cols="30"
+              rows="5"
               type="text"
               name="address"
               onChange={this.setFormValues}
@@ -270,8 +276,10 @@ class RegisterPage extends React.Component {
 
           <br />
 
-          {this.state.user.isFilled ? "" : <h5>all fields are manditory</h5>}
-          <button onClick={this.submitForm}>Submit</button>
+          {this.state.user.isFilled ? "" : <h5>All fields are Manadatory</h5>}
+          <button className="registerbtn" onClick={this.submitForm}>
+            {this.state.user.isEdit ? "Update" : "Register"}
+          </button>
         </form>
       </div>
     );

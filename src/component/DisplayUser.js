@@ -42,10 +42,17 @@ class DisplayUser extends React.Component {
         <td>{items.designation}</td>
 
         <td>
-          <button onClick={() => this.deleteItem(items.s_no)}>Delete</button>
+          <button
+            className="deletebtn"
+            onClick={() => this.deleteItem(items.s_no)}
+          >
+            Delete
+          </button>
         </td>
         <td>
-          <button onClick={() => this.editItem(items.s_no)}>Edit</button>
+          <button className="editbtn" onClick={() => this.editItem(items.s_no)}>
+            Edit
+          </button>
         </td>
       </tr>
     ));
@@ -55,7 +62,7 @@ class DisplayUser extends React.Component {
   render() {
     return (
       <div>
-        <table border="1">
+        <table border="1" id="customers">
           <tbody>
             <tr>
               <th>No.</th>
@@ -70,7 +77,10 @@ class DisplayUser extends React.Component {
             {this.getUserData()}
           </tbody>
         </table>
-        <button onClick={() => this.props.history.push("/")}>
+        <button
+          className="registerbtn"
+          onClick={() => this.props.history.push("/")}
+        >
           Add More User
         </button>
       </div>
