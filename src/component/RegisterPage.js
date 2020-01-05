@@ -7,6 +7,7 @@ class RegisterPage extends React.Component {
     super(props);
     this.state = {
       user: {
+        s_no: 0,
         fname: "",
         lname: "",
         email: "",
@@ -22,29 +23,49 @@ class RegisterPage extends React.Component {
 
   setFormValues = e => {
     e.preventDefault();
-
+    let genSno = this.getArrayLengthOfLocalStorage();
     this.setState({
       user: {
         ...this.state.user,
         [e.target.name]: e.target.value,
-        isFilled: true
+        isFilled: true,
+        s_no: genSno + 1
       }
     });
   };
 
+  getArrayLengthOfLocalStorage = () => {
+    let a = JSON.parse(localStorage.getItem("userList"));
+    if (a !== null) {
+      return a.length;
+    } else {
+      return 0;
+    }
+  };
+
   submitForm = e => {
     e.preventDefault();
-    const router = useRouter();
+
     if (this.formFilled()) {
       console.log("COMPLETED");
+      let localUsers = [];
+      localUsers = JSON.parse(localStorage.getItem("userList"));
+      if (localUsers === null) {
+        localUsers = [];
+      }
+      console.log("length", this.getArrayLengthOfLocalStorage());
       let u = [...this.state.users];
+
       u.push(this.state.user);
+      localUsers.push(this.state.user);
       this.setState(
         {
           users: u
         },
         () => {
-          localStorage.setItem("userList", JSON.stringify(this.state.users));
+          // localStorage.setItem("userList", JSON.stringify(this.state.users));
+          localStorage.setItem("userList", JSON.stringify(localUsers));
+          this.props.history.push("/display");
         }
       );
       // router.push("/display");

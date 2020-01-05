@@ -10,7 +10,9 @@ class DisplayUser extends React.Component {
     };
     console.log(this.state.users);
   }
-
+  clickedItem = id => {
+    console.log("id=", id);
+  };
   getUserData = () => {
     let userdata = "";
 
@@ -24,6 +26,9 @@ class DisplayUser extends React.Component {
         <td>{items.designation}</td>
         <td>{items.address}</td>
         <td>{items.phoneno}</td>
+        <td>
+          <button onClick={({ id }) => this.clickedItem(id)}>Delete</button>
+        </td>
       </tr>
     ));
     return userdata;
