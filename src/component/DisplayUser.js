@@ -27,6 +27,64 @@ class DisplayUser extends React.Component {
     this.props.history.push("/");
   };
 
+  onSort(event, sortKey) {
+    /*
+    assuming your data is something like
+    [
+      {accountname:'foo', negotiatedcontractvalue:'bar'},
+      {accountname:'monkey', negotiatedcontractvalue:'spank'},
+      {accountname:'chicken', negotiatedcontractvalue:'dance'},
+    ]
+    */
+    const data = this.state.users;
+    if (sortKey === "s_no") {
+      // console.log(data);
+      data.sort((a, b) => (a.s_no >= b.s_no ? 1 : -1));
+    }
+    if (sortKey === "fname") {
+      data.sort((a, b) =>
+        a.fname.toUpperCase() >= b.fname.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+    if (sortKey === "lname") {
+      data.sort((a, b) =>
+        a.lname.toUpperCase() >= b.lname.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+    if (sortKey === "email") {
+      data.sort((a, b) =>
+        a.email.toUpperCase() >= b.email.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+    if (sortKey === "gender") {
+      data.sort((a, b) =>
+        a.gender.toUpperCase() >= b.gender.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+    if (sortKey === "phno") {
+      data.sort((a, b) => (a.phoneno >= b.phoneno ? 1 : -1));
+      console.log(data);
+    }
+    if (sortKey === "address") {
+      data.sort((a, b) =>
+        a.address.toUpperCase() >= b.address.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+    if (sortKey === "designation") {
+      data.sort((a, b) =>
+        a.designation.toUpperCase() >= b.designation.toUpperCase() ? 1 : -1
+      );
+      console.log(data);
+    }
+
+    this.setState({ users: data });
+  }
+
   getUserData = () => {
     let userdata = "";
 
@@ -65,14 +123,14 @@ class DisplayUser extends React.Component {
         <table border="1" id="customers">
           <tbody>
             <tr>
-              <th>No.</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Phone No</th>
-              <th>Address</th>
-              <th>Designation</th>
+              <th onClick={e => this.onSort(e, "s_no")}>No.</th>
+              <th onClick={e => this.onSort(e, "fname")}> First Name</th>
+              <th onClick={e => this.onSort(e, "lname")}>Last Name</th>
+              <th onClick={e => this.onSort(e, "email")}>Email</th>
+              <th onClick={e => this.onSort(e, "gender")}>Gender</th>
+              <th onClick={e => this.onSort(e, "phno")}> Phone No</th>
+              <th onClick={e => this.onSort(e, "address")}>Address</th>
+              <th onClick={e => this.onSort(e, "designation")}>Designation</th>
             </tr>
             {this.getUserData()}
           </tbody>

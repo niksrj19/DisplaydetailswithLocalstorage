@@ -170,7 +170,7 @@ class RegisterTest extends React.Component {
       this.checkEmail(this.state.user.email, "email") === true &&
       this.state.user.gender !== "" &&
       this.state.user.designation !== "" &&
-      this.state.user.address !== "" &&
+      this.addressValidation(this.state.user.address, "address") === true &&
       this.phonenumber(this.state.user.phoneno, "phoneno") === true
     ) {
       return true;
@@ -212,6 +212,25 @@ class RegisterTest extends React.Component {
       return true;
     } else {
       document.getElementById(id).innerHTML = "Enter 10 digit Phone no ";
+      return false;
+    }
+  };
+
+  addressValidation = (values, id) => {
+    var address = /^[a-zA-Z0-9\s,]*$/;
+
+    console.log(values.length);
+    if (values.match(address)) {
+      document.getElementById(id).innerHTML = "";
+
+      if (values.length < 141) {
+        return true;
+      } else {
+        document.getElementById(id).innerHTML = "Max size 140";
+        return false;
+      }
+    } else {
+      document.getElementById(id).innerHTML = "Enter Valid address";
       return false;
     }
   };
@@ -304,24 +323,34 @@ class RegisterTest extends React.Component {
           <br />
           <label>
             Address
-            <textarea
-              cols="30"
-              rows="5"
+            <input
               type="text"
               name="address"
+              onKeyUp={() =>
+                this.addressValidation(this.state.user.address, "address")
+              }
               onChange={this.setFormValues}
               value={this.state.user.address}
             />{" "}
           </label>
+          <span id="address" />
           <br />
           <label>
             Designation
-            <input
-              type="text"
+            <select
               name="designation"
+              value={
+                this.state.user.designation === ""
+                  ? "Associate"
+                  : this.state.user.designation
+              }
               onChange={this.setFormValues}
-              value={this.state.user.designation}
-            />{" "}
+            >
+              <option value="Associate">Associate</option>
+              <option value="Sr. Associate">Sr. Associate</option>
+              <option value="Manager">Manager</option>
+              <option value="Sr. Manager">Sr. Manager</option>
+            </select>{" "}
           </label>
           <br />
           {this.state.user.isFilled ? (

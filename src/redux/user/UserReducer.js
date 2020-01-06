@@ -1,5 +1,5 @@
 import UserAdd from "./UserAdd";
-
+import GetDesignation from "./GetDesignation";
 const userList = {
   user: {
     fname: "",
@@ -12,7 +12,15 @@ const userList = {
     isFilled: true
   },
 
-  userCount: 0
+  userCount: 0,
+  designation: [
+    "Associate",
+    "Sr. Associate",
+    "Manager",
+    "Sr. Manager",
+    "Tech Lead",
+    "Sr. Tech Lead"
+  ]
 };
 
 const UserReducer = (state = userList, action) => {
@@ -23,6 +31,12 @@ const UserReducer = (state = userList, action) => {
         user: state.user,
         userCount: state.userCount + 1
       };
+    case "GET_DESIGNATION": {
+      return {
+        ...state,
+        user: state.user
+      };
+    }
     default:
       return state;
   }
