@@ -163,7 +163,11 @@ class RegisterTest extends React.Component {
 
   formFilled = () => {
     console.log(this.text_validate(this.state.user.fname, "fname"));
-
+    this.text_validate(this.state.user.fname, "fname");
+    this.text_validate(this.state.user.lname, "lname");
+    this.checkEmail(this.state.user.email, "email");
+    this.addressValidation(this.state.user.address, "address");
+    this.phonenumber(this.state.user.phoneno, "phoneno");
     if (
       this.text_validate(this.state.user.fname, "fname") === true &&
       this.text_validate(this.state.user.lname, "lname") === true &&
@@ -187,7 +191,7 @@ class RegisterTest extends React.Component {
       return true;
     } else {
       document.getElementById(id).innerHTML =
-        "Enter Alpha character only min length 2";
+        "Enter Alphabets only min length 2";
       return false;
     }
   };
@@ -211,7 +215,8 @@ class RegisterTest extends React.Component {
       document.getElementById(id).innerHTML = "";
       return true;
     } else {
-      document.getElementById(id).innerHTML = "Enter 10 digit Phone no ";
+      document.getElementById(id).innerHTML =
+        "Enter valid phone no start with +/[6-9] ";
       return false;
     }
   };
@@ -230,7 +235,7 @@ class RegisterTest extends React.Component {
         return false;
       }
     } else {
-      document.getElementById(id).innerHTML = "Enter Valid address";
+      document.getElementById(id).innerHTML = "Special Character not allowed";
       return false;
     }
   };
@@ -338,14 +343,16 @@ class RegisterTest extends React.Component {
           <label>
             Designation
             <select
+              id="selectdes"
               name="designation"
               value={
                 this.state.user.designation === ""
-                  ? "Associate"
+                  ? ""
                   : this.state.user.designation
               }
               onChange={this.setFormValues}
             >
+              <option value="" />
               <option value="Associate">Associate</option>
               <option value="Sr. Associate">Sr. Associate</option>
               <option value="Manager">Manager</option>

@@ -1,14 +1,16 @@
 import React from "react";
 import UserAdd from "../redux/user/UserAdd";
 import { connect } from "react-redux";
+import { onSort } from "../Validation/sort";
 
 class DisplayUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: JSON.parse(localStorage.getItem("userList"))
+      users: JSON.parse(localStorage.getItem("userList")),
+      isNull: true
     };
-    console.log(this.state.users);
+    console.log("ONSORT=", onSort);
   }
   deleteItem = id => {
     console.log("id=", id);
@@ -27,20 +29,13 @@ class DisplayUser extends React.Component {
     this.props.history.push("/");
   };
 
-  onSort(event, sortKey) {
-    /*
-    assuming your data is something like
-    [
-      {accountname:'foo', negotiatedcontractvalue:'bar'},
-      {accountname:'monkey', negotiatedcontractvalue:'spank'},
-      {accountname:'chicken', negotiatedcontractvalue:'dance'},
-    ]
-    */
+  /* onSort(event, sortKey) {
+    
     const data = this.state.users;
-    if (sortKey === "s_no") {
-      // console.log(data);
-      data.sort((a, b) => (a.s_no >= b.s_no ? 1 : -1));
-    }
+    //  if (sortKey === "s_no") {
+    // console.log(data);
+    //  data.sort((a, b) => (a.s_no >= b.s_no ? 1 : -1));
+    // }
     if (sortKey === "fname") {
       data.sort((a, b) =>
         a.fname.toUpperCase() >= b.fname.toUpperCase() ? 1 : -1
@@ -83,38 +78,50 @@ class DisplayUser extends React.Component {
     }
 
     this.setState({ users: data });
-  }
+  }  */
 
+  onSortDis = (e, items) => {
+    const data = this.state.users;
+
+    let sortData = onSort(data, items);
+
+    this.setState({ users: sortData });
+  };
   getUserData = () => {
     let userdata = "";
+    console.log(this.state.users);
+    if (this.state.users !== null) {
+      userdata = this.state.users.map((items, id) => (
+        <tr key={id}>
+          <td>{id + 1}</td>
+          <td>{items.fname}</td>
+          <td>{items.lname}</td>
+          <td>{items.email}</td>
+          <td>{items.gender}</td>
+          <td>{items.phoneno}</td>
+          <td>{items.address}</td>
+          <td>{items.designation}</td>
 
-    userdata = this.state.users.map((items, id) => (
-      <tr key={id}>
-        <td>{id + 1}</td>
-        <td>{items.fname}</td>
-        <td>{items.lname}</td>
-        <td>{items.email}</td>
-        <td>{items.gender}</td>
-        <td>{items.phoneno}</td>
-        <td>{items.address}</td>
-        <td>{items.designation}</td>
-
-        <td>
-          <button
-            className="deletebtn"
-            onClick={() => this.deleteItem(items.s_no)}
-          >
-            Delete
-          </button>
-        </td>
-        <td>
-          <button className="editbtn" onClick={() => this.editItem(items.s_no)}>
-            Edit
-          </button>
-        </td>
-      </tr>
-    ));
-    return userdata;
+          <td>
+            <button
+              className="deletebtn"
+              onClick={() => this.deleteItem(items.s_no)}
+            >
+              Delete
+            </button>
+          </td>
+          <td>
+            <button
+              className="editbtn"
+              onClick={() => this.editItem(items.s_no)}
+            >
+              Edit
+            </button>
+          </td>
+        </tr>
+      ));
+      return userdata;
+    }
   };
 
   render() {
@@ -123,14 +130,16 @@ class DisplayUser extends React.Component {
         <table border="1" id="customers">
           <tbody>
             <tr>
-              <th onClick={e => this.onSort(e, "s_no")}>No.</th>
-              <th onClick={e => this.onSort(e, "fname")}> First Name</th>
-              <th onClick={e => this.onSort(e, "lname")}>Last Name</th>
-              <th onClick={e => this.onSort(e, "email")}>Email</th>
-              <th onClick={e => this.onSort(e, "gender")}>Gender</th>
-              <th onClick={e => this.onSort(e, "phno")}> Phone No</th>
-              <th onClick={e => this.onSort(e, "address")}>Address</th>
-              <th onClick={e => this.onSort(e, "designation")}>Designation</th>
+              <th onClick={e => this.onSortDis(e, "s_no")}>No.</th>
+              <th onClick={e => this.onSortDis(e, "fname")}> First Name</th>
+              <th onClick={e => this.onSortDis(e, "lname")}>Last Name</th>
+              <th onClick={e => this.onSortDis(e, "email")}>Email</th>
+              <th onClick={e => this.onSortDis(e, "gender")}>Gender</th>
+              <th onClick={e => this.onSortDis(e, "phno")}> Phone No</th>
+              <th onClick={e => this.onSortDis(e, "address")}>Address</th>
+              <th onClick={e => this.onSortDis(e, "designation")}>
+                Designation
+              </th>
             </tr>
             {this.getUserData()}
           </tbody>
