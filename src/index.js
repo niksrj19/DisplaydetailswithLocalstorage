@@ -6,7 +6,7 @@ import Store from "./redux/user/Store";
 import DisplayUser from "./component/DisplayUser";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-import RegisterPage from "./component/RegisterPage";
+import RegisterTest from "./component/RegisterTest";
 import "./css/styles.css";
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
     <Switch>
       <Provider store={Store}>
         <div className="App">
-          <Route path="/" exact component={RegisterPage} />
+          <Route path="/" exact component={RegisterTest} />
           <Route path="/display" component={DisplayUser} />
         </div>
       </Provider>
